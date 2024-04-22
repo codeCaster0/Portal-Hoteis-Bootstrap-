@@ -1,0 +1,20 @@
+* {
+    font-family: Arial, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    overflow-y: auto; 
+}
+
+.borda-preta {
+    border: 0.1rem solid black;
+}
+
+.borda-arredondada {
+    border-radius: 0.4rem;
+}

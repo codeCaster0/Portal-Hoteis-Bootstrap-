@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Primeiro Bootstrap</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <style>
+        .card-body {
+            height: 20rem;
+        }
+
+        .destaque {
+            width: auto;
+            height: 25rem;
+        }
+
+        .porque {
+            width: auto;
+            height: 5rem
+        }
+
+        .caixa-rodape {
+            width: 100%;
+        }
+
+        .custom-btn {
+            width: 15rem;
+            background-color: white;
+            color: black;
+            border: 0.01rem solid black;
+            border-radius: 1rem;
+            font-size: 1rem;
+        }
+    </style>
+    <nav class="navbar bg-body-secondary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                LOGO
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-center gx-0">
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Sinta o conforto acolhedor de nossas hospedagens</h5>
+                        <p class="card-text">Hospede-se nos nossos hóteis com quartos à-partir de R$ 100,00.</p>
+                        <div class="mt-auto">
+                            <a href="#" class="btn btn-info">SAIBA MAIS</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <img src="img-hotel/hotel.jpeg" class="destaque">
+            </div>
+        </div>
+        <br />
+        <p class="text-center fw-bold fs-4">Por que se hospedar em nossos hóteis?</p>
+        <div class="row justify-content-evenly gx-1">
+            <div class="col-sm-6 d-flex justify-content-center">
+                <img src="img-porque/coffee.png" class="porque me-3">
+                <div>
+                    <p class="fs-5 fw-semibold mb-0">Delicioso café da manhã</p>
+                    <p class="fs-6 mt-0">Incluso em todas as diárias</p>
+                </div>
+            </div>
+            <div class="col-sm-6 d-flex justify-content-center">
+                <img src="img-porque/map-pin.png" class="porque me-3">
+                <div>
+                    <p class="fs-5 fw-semibold mb-0">Fácil acesso</p>
+                    <p class="fs-6 mt-0">Perto dos principais pontos turísticos</p>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+
+    <footer class="border bg-body-secondary">
+        <div class="row justify-content-between gx-1 caixa-Faca-Reserva">
+            <div class="col-sm-4">
+                <div class="fs-2 fw-bold">Faça sua reserva</div>
+                <div class="fs-5 mt-0">
+                    Entre em contato conosco informando as datas desejadas. Lhe retornaremos informando a
+                    disponibilidade e repassando detalhes da reserva.
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <form id="formReserva">
+                    <div class="row g-3 align-items-center me-4 mt-2">
+                        <div class="col-auto ms-auto">
+                            <label for="inputNome" class="col-form-label">Nome</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="text" id="inputNome" class="form-control" aria-describedby="nomeHelp">
+                        </div>
+                        <div class="col-auto mc-auto">
+                            <label for="inputEmail" class="col-form-label">Email</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="email" id="inputEmail" class="form-control" aria-describedby="emailHelp">
+                        </div>
+                    </div>
+                    <div class="row mt-3 align-items-center justify-content-end me-3">
+                        <div class="col-auto ">
+                            <button type="submit" class="btn btn-primary custom-btn">Enviar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </footer>
+    <script>
+        $(document).ready(function () {
+            $('#formReserva').submit(function (event) {
+                event.preventDefault();
+
+                let nome = $('#inputNome').val();
+                let email = $('#inputEmail').val();
+
+                let reserva = {
+                    "nome": nome,
+                    "email": email
+                };
+
+                $.ajax({
+                    url: 'http://localhost:3000/reservas',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(reserva),
+                    success: function (response) {
+                        alert('Reserva enviada com sucesso!');
+                        $('#inputNome').val('');
+                        $('#inputEmail').val('');
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Erro ao enviar reserva:', error);
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>    
+</body>
+
+</html>
